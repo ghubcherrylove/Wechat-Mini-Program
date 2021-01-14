@@ -7,10 +7,11 @@ Page({
   isShowUserName: false,
   userInfo: null,
  },
-
  // button获取用户信息
  onGotUserInfo: function(e) {
   if (e.detail.userInfo) {
+    console.log('--e--')
+    console.log(e)
    var user = e.detail.userInfo;
    this.setData({
     isShowUserName: true,
@@ -42,6 +43,8 @@ Page({
  onShow(options) {
   console.log("个人show", options)
   var user = app.globalData.userInfo;
+  console.log('user')
+  console.log(user)
   if (user) {
    this.setData({
     isShowUserName: true,
@@ -53,13 +56,22 @@ Page({
  //生命周期函数--监听页面加载
  onLoad: function(options) {
   console.log("个人onLoad")
+  // var that = this;
   var that = this;
+  wx.getStorage({
+    key: 'user',
+    success (res) {
+      console.log('res')
+      console.log(res.data)
+      that.setData({isShowUserName: true,userInfo: res.data})
+    }
+  })
   var user = app.globalData.userInfo;
   if (user) {
-   // that.setData({
-   //  isShowUserName: true,
-   //  userInfo: user,
-   // })
+   that.setData({
+    isShowUserName: true,
+    userInfo: user,
+   })
   } else {
    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
    // 所以此处加入 callback 以防止这种情况

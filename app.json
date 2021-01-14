@@ -1,7 +1,7 @@
 {
  "pages": [
-  "pages/me/me",
   "pages/index/index",
+  "pages/me/me",
   "pages/mycomment/mycomment",
   "pages/myOrder/myOrder",
   "pages/buy/buy",
@@ -11,7 +11,7 @@
  "window": {
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#fff",
-  "navigationBarTitleText": "点餐系统",
+  "navigationBarTitleText": "小任相亲网",
   "navigationBarTextStyle": "black"
  },
  "tabBar": {

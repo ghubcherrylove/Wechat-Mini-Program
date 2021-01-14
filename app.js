@@ -9,15 +9,29 @@ App({
  },
  onLaunch: function() {
   //云开发初始化
-  wx.cloud.init({
-   env: 'prod-3d1ce5',
-   traceUser: true,
-  })
-  this.db = wx.cloud.database(); //云数据库初始化
+  // wx.cloud.init({
+  //  env: 'prod-3d1ce5',
+  //  traceUser: true,
+  // })
+  // this.db = wx.cloud.database(); //云数据库初始化
   this.getOpenid();
  },
  // 获取用户openid
  getOpenid: function() {
+   // 必须是在用户已经授权的情况下调用
+wx.getUserInfo({
+  success: function(res) {
+    console.log('getUserInfo')
+    console.log(res)
+    var userInfo = res.userInfo
+    var nickName = userInfo.nickName
+    var avatarUrl = userInfo.avatarUrl
+    var gender = userInfo.gender //性别 0：未知、1：男、2：女
+    var province = userInfo.province
+    var city = userInfo.city
+    var country = userInfo.country
+  }
+})
   var app = this;
   var openidStor = wx.getStorageSync('openid');
   if (openidStor) {
@@ -25,16 +39,16 @@ App({
    app.globalData.openid = openidStor;
    app._getUserInfo();
   } else {
-   wx.cloud.callFunction({
-    name: 'getOpenid',
-    complete: res => {
-     console.log('云函数获取到的openid: ', res.result.openId)
-     var openid = res.result.openId;
-     wx.setStorageSync('openid', openid)
-     app.globalData.openid = openid;
-     app._getUserInfo();
-    }
-   })
+  //  wx.cloud.callFunction({
+  //   name: 'getOpenid',
+  //   complete: res => {
+  //    console.log('云函数获取到的openid: ', res.result.openId)
+  //    var openid = res.result.openId;
+  //    wx.setStorageSync('openid', openid)
+  //    app.globalData.openid = openid;
+  //    app._getUserInfo();
+  //   }
+  //  })
   }
  },
  // 获取用户信息，如果用户没有授权，就获取不到

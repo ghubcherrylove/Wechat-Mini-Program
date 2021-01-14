@@ -1,5 +1,5 @@
 page {
- background: #69e6db;
+ /* background: #e7ecec; */
 }
 .container {
  width: 90%;
